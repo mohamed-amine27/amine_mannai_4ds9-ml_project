@@ -1,0 +1,15 @@
+artifact_uri: file:///home/mohamed/amine_mannai_4ds9-ml_project/mlruns/175558581506285188/bf4faebbef4540449d75c209451c3185/artifacts
+end_time: 1739620344701
+entry_point_name: ''
+experiment_id: '175558581506285188'
+lifecycle_stage: active
+run_id: bf4faebbef4540449d75c209451c3185
+run_name: Model Evaluation
+run_uuid: bf4faebbef4540449d75c209451c3185
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739620344694
+status: 3
+tags: []
+user_id: mohamed

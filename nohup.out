@@ -1,0 +1,17 @@
+[2025-02-15 16:43:38 +0100] [2445] [INFO] Starting gunicorn 23.0.0
+[2025-02-15 16:43:38 +0100] [2445] [INFO] Listening at: http://0.0.0.0:5000 (2445)
+[2025-02-15 16:43:38 +0100] [2445] [INFO] Using worker: sync
+[2025-02-15 16:43:38 +0100] [2446] [INFO] Booting worker with pid: 2446
+[2025-02-15 16:43:38 +0100] [2447] [INFO] Booting worker with pid: 2447
+[2025-02-15 16:43:38 +0100] [2448] [INFO] Booting worker with pid: 2448
+[2025-02-15 16:43:38 +0100] [2449] [INFO] Booting worker with pid: 2449
+[2025-02-15 17:54:32 +0100] [2445] [INFO] Handling signal: hup
+[2025-02-15 17:54:32 +0100] [2445] [INFO] Hang up: Master
+[2025-02-15 17:54:32 +0100] [2445] [ERROR] Worker (pid:2447) was sent SIGHUP!
+[2025-02-15 17:54:32 +0100] [2445] [ERROR] Worker (pid:2448) was sent SIGHUP!
+[2025-02-15 17:54:32 +0100] [2445] [ERROR] Worker (pid:2449) was sent SIGHUP!
+[2025-02-15 17:54:32 +0100] [2445] [ERROR] Worker (pid:2446) was sent SIGHUP!
+[2025-02-15 17:54:32 +0100] [2858] [INFO] Booting worker with pid: 2858
+[2025-02-15 17:54:32 +0100] [2860] [INFO] Booting worker with pid: 2860
+[2025-02-15 17:54:32 +0100] [2859] [INFO] Booting worker with pid: 2859
+[2025-02-15 17:54:32 +0100] [2861] [INFO] Booting worker with pid: 2861
