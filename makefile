@@ -14,19 +14,27 @@ REPO_URL =https://github.com/mohamed-amine27/amine_mannai_4ds9-ml_project.git
 BRANCH = main
 COMMIT_MSG = "Mise à jour du projet MLOps"
 
-# Initialisation du dépôt Git
-init:
-	git init
-	git branch -M $(BRANCH)
-	git remote add origin $(REPO_URL)
+# Définition de l'URL du dépôt GitHub
+GIT_REMOTE = https://github.com/mohamed-amine27/amine_mannai_4ds9-ml_project.git
 
-# Ajouter les fichiers, valider et pusher
+
+# Initialiser un dépôt Git et ajouter le remote (si ce n'est pas déjà fait)
+git-init:
+	@git init
+	@git remote add origin $(GIT_REMOTE) 2>/dev/null || echo "⚠️ Remote déjà existant"
+	@git add .
+	@git commit -m "Initialisation du projet MLflow" || echo "⚠️ Rien à committer, dépôt déjà initialisé."
+
+# Pousser sur le repo distant (vérifie que la branche main existe)
 git-push:
-	git add .
-	@echo "✅ Fichiers ajoutés à l'index Git."
-	git commit -m "Mise à jour du projet MLOps" || echo "⚠️ Rien à committer, l'arbre de travail est propre."
-	git push -u origin main
-	@echo "🚀 Push vers GitHub réussi !"
+	@git branch -M $(BRANCH)
+	@git add .
+	@git commit -m $(COMMIT_MSG) || echo "⚠️ Rien à committer, l'arbre de travail est propre."
+	@git push -u origin $(BRANCH)
+
+# Statut du dépôt
+status:
+	@git status
 # Statut du dépôt
 status:
 	git status
