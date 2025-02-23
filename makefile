@@ -10,34 +10,30 @@ MLFLOW_PORT=5000
 IMAGE_NAME=mohamedaminemannai/fastapi-mlflow-app
 TAG=latest
 CONTAINER_NAME=fastapi-ml-container
-REPO_URL =https://github.com/mohamed-amine27/amine_mannai_4ds9-ml_project.git
-BRANCH = main
-COMMIT_MSG = "Mise à jour du projet MLOps"
+REPO_URL=https://github.com/mohamed-amine27/amine_mannai_4ds9-ml_project.git
+BRANCH=main
+COMMIT_MSG="Mise à jour du projet MLOps"
 
 # Définition de l'URL du dépôt GitHub
-GIT_REMOTE = https://github.com/mohamed-amine27/amine_mannai_4ds9-ml_project.git
-
+GIT_REMOTE=https://github.com/mohamed-amine27/amine_mannai_4ds9-ml_project.git
 
 # Initialiser un dépôt Git et ajouter le remote (si ce n'est pas déjà fait)
 git-init:
-	@git init
-	@git remote add origin $(GIT_REMOTE) 2>/dev/null || echo "⚠️ Remote déjà existant"
-	@git add .
-	@git commit -m "Initialisation du projet MLflow" || echo "⚠️ Rien à committer, dépôt déjà initialisé."
+	git init
+	git remote add origin $(GIT_REMOTE) || echo "Remote déjà existant"
+	git add .
+	git commit -m "Initialisation du projet MLflow"
 
 # Pousser sur le repo distant (vérifie que la branche main existe)
 git-push:
-	@git branch -M $(BRANCH)
-	@git add .
-	@git commit -m $(COMMIT_MSG) || echo "⚠️ Rien à committer, l'arbre de travail est propre."
-	@git push -u origin $(BRANCH)
+	git branch -M main
+	git pull origin main --rebase  # Synchronisation pour éviter le rejet
+	git push -u origin main
 
 # Statut du dépôt
 status:
-	@git status
-# Statut du dépôt
-status:
 	git status
+
 # Cible par défaut
 all: install test_env prepare train evaluate save mlflow_ui
 
@@ -63,30 +59,30 @@ evaluate:
 
 # Sauvegarder le modèle
 save:
-	
 	$(PYTHON) $(MAIN_SCRIPT) --train
-# 10. Lancer Jupyter Notebook pour l'exploration
+
+# Lancer Jupyter Notebook
 notebook:
-	jupyter notebook  
-# Nettoyage des fichiers temporaires
+	jupyter notebook
 
 # Lancer le serveur MLflow
 mlflow_ui:
-	@lsof -i :$(MLFLOW_PORT) > /dev/null && echo "Le port $(MLFLOW_PORT) est déjà utilisé. Veuillez fermer l'autre instance MLflow." || \
+	@lsof -i :$(MLFLOW_PORT) > /dev/null && echo "Le port $(MLFLOW_PORT) est déjà utilisé. Fermez l'autre instance MLflow." || \
 	(mlflow ui --host 0.0.0.0 --port $(MLFLOW_PORT) &)
-
 
 # Démarrer l'API avec FastAPI et Uvicorn
 run_api:
 	uvicorn app:app --reload --host 0.0.0.0 --port 8000
 
+# Relancer l'entraînement du modèle via l'API
 retrain_model:
 	curl -X POST "http://127.0.0.1:8000/retrain" -H "Content-Type: application/json" -d '{"learning_rate": 0.05}'
 
+# Construire l'image Docker
 build:
 	docker build -t $(IMAGE_NAME):$(TAG) .
 
-# Push l'image vers Docker Hub
+# Pousser l'image vers Docker Hub
 push: build
 	docker push $(IMAGE_NAME):$(TAG)
 
@@ -110,6 +106,8 @@ images:
 # Vérifier les conteneurs en cours d'exécution
 ps:
 	docker ps -a
+
 # Lancer MLflow avec une base SQLite
 mlflow_db:
 	mlflow ui --backend-store-uri sqlite:///mlflow.db --host 0.0.0.0 --port 5001 &
+
