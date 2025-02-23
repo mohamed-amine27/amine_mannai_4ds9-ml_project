@@ -23,9 +23,10 @@ init:
 # Ajouter les fichiers, valider et pusher
 git-push:
 	git add .
-	git commit -m "Mise à jour du projet MLOps"
-	git push origin main
-
+	@echo "✅ Fichiers ajoutés à l'index Git."
+	git commit -m "Mise à jour du projet MLOps" || echo "⚠️ Rien à committer, l'arbre de travail est propre."
+	git push -u origin main
+	@echo "🚀 Push vers GitHub réussi !"
 # Statut du dépôt
 status:
 	git status
